@@ -224,8 +224,11 @@
                 }
                 console.info("parsed: ", parsed);
                 options.rpcHost = parsed.hostname;
-                options.rpcPort = parsed.port;
+                options.rpcPort = parsed.port || parsed.protocol === 'https:' ? 443 : 80;
                 options.secret = parsed.secret;
+                options.protocol = parsed.protocol.replace(':', '');
+
+                console.info(options);
 
                 return options;
             };
